@@ -17,6 +17,5 @@ This web application is designed for educational purposes to demonstrate SQL Inj
 Config file .env.example use MySQL
 
 ## 🎥 Demo
-![Demo](<img width="800" height="407" alt="demogif" src="https://github.com/user-attachments/assets/2f267b9f-8d87-4457-9589-b85acd800dc1" />
-)
+![Demo](demogif.gif)
 
