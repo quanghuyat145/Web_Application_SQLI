@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phản Hồi Khách Hàng - ShopDrink</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    
+    <header class="header">
+        <div class="container">
+            <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Mở menu">
+                ☰
+            </button>
+            <div class="logo">
+                <h1><a href="home.html" class="logo-link">🥤 ShopDrink</a></h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="home.html">Trang Chủ</a></li>
+                    <li><a href="home.html#products">Sản Phẩm</a></li>
+                    <li><a href="home.html#about">Về Chúng Tôi</a></li>
+                    <li><a href="home.html#contact">Liên Hệ</a></li>
+                    <li id="adminLink" style="display:none;"><a href="admin.html">Quản Lý User</a></li>
+                    <li><a href="feedback.html" class="active">Phản Hồi</a></li>
+                </ul>
+            </nav>
+            <div class="user-section">
+                <button class="btn-basket" onclick="openBasketModal()">
+                    🛒 <span id="cartCount" class="cart-count">0</span>
+                </button>
+                <span id="username"></span>
+                <button class="btn-logout" onclick="logout()">Đăng Xuất</button>
+            </div>
+        </div>
+    </header>
+
+    
+    <aside id="leftSidebar" class="left-sidebar">
+        <div class="sidebar-header">
+            <h3>Menu</h3>
+            <button class="sidebar-close" onclick="closeSidebar()" aria-label="Đóng menu">&times;</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html" onclick="closeSidebar()">Trang Chủ</a>
+            <a href="home.html#products" onclick="closeSidebar()">Sản Phẩm</a>
+            <a href="home.html#about" onclick="closeSidebar()">Về Chúng Tôi</a>
+            <a href="home.html#contact" onclick="closeSidebar()">Liên Hệ</a>
+            <a id="sidebarAdminLink" href="admin.html" style="display:none;" onclick="closeSidebar()">Quản Lý User</a>
+            <a href="feedback.html" class="active" onclick="closeSidebar()">Phản Hồi</a>
+            <a href="cart.html" onclick="closeSidebar()">Giỏ Hàng</a>
+        </nav>
+    </aside>
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    
+    <section class="feedback-section">
+        <div class="container">
+            <h2>Phản Hồi Của Khách Hàng</h2>
+            <div class="feedback-content">
+                <div class="feedback-form">
+                    <h3>Gửi Phản Hồi</h3>
+                    <form id="feedbackForm">
+                        <input type="text" id="feedbackAuthor" placeholder="Tên của bạn (hoặc ẩn danh)" maxlength="100">
+                        <textarea id="feedbackComment" placeholder="Chia sẻ ý kiến của bạn..." rows="5" maxlength="500"></textarea>
+                        <div class="rating-input">
+                            <label>Đánh giá: <span id="ratingValue">5</span> ⭐</label>
+                            <input type="range" id="feedbackRating" min="1" max="5" value="5" oninput="document.getElementById('ratingValue').textContent = this.value">
+                        </div>
+                        <button type="submit" class="btn-submit">Gửi Phản Hồi</button>
+                    </form>
+                </div>
+                <div class="feedback-list">
+                    <h3>Phản Hồi Gần Đây</h3>
+                    <div id="feedbacksList">
+                        <p class="loading">Đang tải phản hồi...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <div id="basketModal" class="basket-modal">
+        <div class="basket-modal-content">
+            <div class="basket-header">
+                <h2>Giỏ Hàng Của Bạn</h2>
+                <button class="close-btn" onclick="closeBasketModal()">&times;</button>
+            </div>
+            <div class="basket-body">
+                <table class="basket-table">
+                    <thead>
+                        <tr>
+                            <th>Sản Phẩm</th>
+                            <th>Giá</th>
+                            <th>Số Lượng</th>
+                            <th>Thành Tiền</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="basketItems">
+                        <tr id="emptyBasket">
+                            <td colspan="5" class="empty-message">Giỏ hàng của bạn đang trống</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="basket-footer">
+                <div class="basket-summary">
+                    <span>Tổng tiền:</span>
+                    <span id="basketTotalPrice" class="total-price">0 VNĐ</span>
+                </div>
+                <button class="btn-checkout" onclick="checkout()">Thanh Toán</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+        <p>&copy; 2024 ShopDrink. All rights reserved.</p>
+    </footer>
+
+    <script src="home.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadCart();
+            loadAllFeedback();
+        });
+
+        
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+            const isAdmin = localStorage.getItem('is_admin');
+            
+            if (!token) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            document.getElementById('username').textContent = `Xin chào, ${username}!`;
+            
+            
+            if (isAdmin === '1' || isAdmin === true) {
+                document.getElementById('adminLink').style.display = 'block';
+                document.getElementById('sidebarAdminLink').style.display = 'block';
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('leftSidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('show');
+        }
+
+        function closeSidebar() {
+            document.getElementById('leftSidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('show');
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeSidebar();
+            }
+        });
+
+        
+        function loadAllFeedback() {
+            fetch(`${API_URL}/api/feedback`)
+                .then(response => response.json())
+                .then(data => {
+                    displayFeedback(data.feedbacks);
+                })
+                .catch(error => {
+                    console.error('Error loading feedback:', error);
+                    document.getElementById('feedbacksList').innerHTML = '<p class="error-message">Lỗi tải phản hồi</p>';
+                });
+        }
+
+        
+        function displayFeedback(feedbacks) {
+            const feedbacksList = document.getElementById('feedbacksList');
+            
+            if (feedbacks.length === 0) {
+                feedbacksList.innerHTML = '<p class="empty-message">Chưa có phản hồi nào</p>';
+                return;
+            }
+
+            
+            const recentFeedbacks = feedbacks.slice(0, 10);
+            
+            feedbacksList.innerHTML = recentFeedbacks.map(feedback => {
+                const date = new Date(feedback.created_at).toLocaleDateString('vi-VN');
+                const stars = '⭐'.repeat(feedback.rating);
+                
+                return `
+                    <div class="feedback-item">
+                        <div class="feedback-author">${feedback.author || 'Anonymous'}</div>
+                        <div class="feedback-rating">${stars}</div>
+                        <div class="feedback-comment">${feedback.comment}</div>
+                        <div class="feedback-date">${date}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const author = document.getElementById('feedbackAuthor').value.trim();
+            const comment = document.getElementById('feedbackComment').value.trim();
+            const rating = parseInt(document.getElementById('feedbackRating').value);
+
+            if (!comment) {
+                alert('Vui lòng nhập phản hồi');
+                return;
+            }
+
+            fetch(`${API_URL}/api/feedback`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    author: author || 'anonymous',
+                    comment: comment,
+                    rating: rating
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message.includes('thành công') || data.feedback_id) {
+                    alert('Cảm ơn bạn đã gửi phản hồi!');
+                    this.reset();
+                    document.getElementById('ratingValue').textContent = '5';
+                    loadAllFeedback();
+                } else {
+                    alert(data.message || 'Lỗi gửi phản hồi');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Lỗi kết nối đến server');
+            });
+        });
+    </script>
+</body>
+</html>
