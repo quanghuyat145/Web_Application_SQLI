@@ -1,3 +1,5 @@
+Hello everyone, my name is Nguyen Quang Huy. I am currently a final-year student majoring in Information Security at Posts and Telecommunications Institute of Technology (PTIT). Below is a website containing SQL Injection vulnerabilities for educational and learning purposes.
+
 # 🛡️ Website Description
 
 This web application is built for educational and security research purposes, focusing on demonstrating common web vulnerabilities based on the OWASP Top 10.
