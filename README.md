@@ -23,5 +23,5 @@ Config file .env.example use MySQL
 [![Demo](https://img.youtube.com/vi/Db-H5unX3aI/0.jpg)](https://www.youtube.com/watch?v=Db-H5unX3aI)
 
 ## 🎥 Stored XSS
-[![Demo](https://www.youtube.com/watch?v=tCFA5gig22g/0.jpg)](https://www.youtube.com/watch?v=tCFA5gig22g)
+[![Demo](https://img.youtube.com/vi/tCFA5gig22g/0.jpg)](https://www.youtube.com/watch?v=tCFA5gig22g)
 
