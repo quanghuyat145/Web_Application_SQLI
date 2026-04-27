@@ -28,3 +28,5 @@ Config file .env.example use MySQL
 ## 🎥 Sensitive Config Leak
 <img width="948" height="342" alt="sensitive leak" src="https://github.com/user-attachments/assets/ba3ab8ab-761b-4b51-b39f-d33970b4d335" />
 
+## 🎥 Broken Authentication
+[![Demo](https://img.youtube.com/vi/jLX3pEMcwKs/0.jpg)](https://youtu.be/jLX3pEMcwKs)
