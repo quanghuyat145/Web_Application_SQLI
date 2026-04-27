@@ -25,3 +25,6 @@ Config file .env.example use MySQL
 ## 🎥 Stored XSS
 [![Demo](https://img.youtube.com/vi/tCFA5gig22g/0.jpg)](https://www.youtube.com/watch?v=tCFA5gig22g)
 
+## 🎥 Sensitive Config Leak
+<img width="948" height="342" alt="sensitive leak" src="https://github.com/user-attachments/assets/ba3ab8ab-761b-4b51-b39f-d33970b4d335" />
+
