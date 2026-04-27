@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý User - ShopDrink</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="home.html" class="logo-link">🥤 ShopDrink</a></h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="home.html">Trang Chủ</a></li>
+                    <li><a href="home.html#products">Sản Phẩm</a></li>
+                    <li><a href="home.html#about">Về Chúng Tôi</a></li>
+                    <li><a href="home.html#contact">Liên Hệ</a></li>
+                    <li><a href="admin.html" class="active">Quản Lý User</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="feedback.html">Phản Hồi</a></li>
+                </ul>
+            </nav>
+            <div class="user-section">
+                <button class="btn-basket" onclick="openBasketModal()">
+                    🛒 <span id="cartCount" class="cart-count">0</span>
+                </button>
+                <span id="username"></span>
+                <button class="btn-logout" onclick="logout()">Đăng Xuất</button>
+            </div>
+        </div>
+    </header>
+
+    
+    <section class="admin-section">
+        <div class="container">
+            <h2>Quản Lý User</h2>
+            <div class="admin-content">
+                <div class="admin-form">
+                    <h3>Thêm User Mới</h3>
+                    <form id="addUserForm">
+                        <input type="text" id="newUsername" placeholder="Tên đăng nhập" required>
+                        <input type="email" id="newEmail" placeholder="Email" required>
+                        <input type="password" id="newPassword" placeholder="Mật khẩu" required>
+                        <button type="submit" class="btn-add">Thêm User</button>
+                    </form>
+                </div>
+                <div class="admin-list">
+                    <h3>Danh Sách User</h3>
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Loại</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr>
+                                <td colspan="5" class="empty-message">Đang tải...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <div id="basketModal" class="basket-modal">
+        <div class="basket-modal-content">
+            <div class="basket-header">
+                <h2>Giỏ Hàng Của Bạn</h2>
+                <button class="close-btn" onclick="closeBasketModal()">&times;</button>
+            </div>
+            <div class="basket-body">
+                <table class="basket-table">
+                    <thead>
+                        <tr>
+                            <th>Sản Phẩm</th>
+                            <th>Giá</th>
+                            <th>Số Lượng</th>
+                            <th>Thành Tiền</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="basketItems">
+                        <tr id="emptyBasket">
+                            <td colspan="5" class="empty-message">Giỏ hàng của bạn đang trống</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="basket-footer">
+                <div class="basket-summary">
+                    <span>Tổng tiền:</span>
+                    <span id="basketTotalPrice" class="total-price">0 VNĐ</span>
+                </div>
+                <button class="btn-checkout" onclick="checkout()">Thanh Toán</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+        <p>&copy; 2024 ShopDrink. All rights reserved.</p>
+    </footer>
+
+    <script src="home.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadCart();
+            loadUsers();
+        });
+
+        
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+            const isAdmin = localStorage.getItem('is_admin');
+            
+            if (!token) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            if (isAdmin !== '1' && isAdmin !== true) {
+                alert('Bạn không có quyền truy cập trang này!');
+                window.location.href = 'home.html';
+                return;
+            }
+
+            document.getElementById('username').textContent = `Xin chào, ${username}!`;
+        }
+
+        
+        function loadUsers() {
+            const token = localStorage.getItem('token');
+            
+            fetch(`${API_URL}/api/admin/users`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                displayUsers(data.users);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('usersTableBody').innerHTML = '<tr><td colspan="5" class="error-message">Lỗi tải danh sách user</td></tr>';
+            });
+        }
+
+        
+        function displayUsers(users) {
+            const tbody = document.getElementById('usersTableBody');
+            
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="empty-message">Không có user nào</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = users.map(user => `
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>${user.is_admin ? 'Admin' : 'User'}</td>
+                    <td>
+                        <button class="btn-delete" onclick="deleteUser(${user.id})">Xóa</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        
+        document.getElementById('addUserForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            
+            const username = document.getElementById('newUsername').value.trim();
+            const email = document.getElementById('newEmail').value.trim();
+            const password = document.getElementById('newPassword').value;
+
+            fetch(`${API_URL}/api/admin/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success || data.message.includes('thành công')) {
+                    alert('Thêm user thành công!');
+                    this.reset();
+                    loadUsers();
+                } else {
+                    alert(data.message || 'Lỗi thêm user');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Lỗi kết nối');
+            });
+        });
+
+        
+        function deleteUser(userId) {
+            if (!confirm('Bạn chắc chắn muốn xóa user này?')) return;
+
+            const token = localStorage.getItem('token');
+            
+            fetch(`${API_URL}/api/admin/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success || data.message.includes('thành công')) {
+                    alert('Xóa user thành công!');
+                    loadUsers();
+                } else {
+                    alert(data.message || 'Lỗi xóa user');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Lỗi kết nối');
+            });
+        }
+    </script>
+</body>
+</html>

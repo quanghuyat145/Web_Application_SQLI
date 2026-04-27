@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bán Đồ Uống - Trang Chủ</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    
+    <header class="header">
+        <div class="container">
+            <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Mở menu">
+                ☰
+            </button>
+            <div class="logo">
+                <h1><a href="home.html" class="logo-link">🥤 ShopDrink</a></h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="#" class="active">Trang Chủ</a></li>
+                    <li><a href="#products">Sản Phẩm</a></li>
+                    <li><a href="#about">Về Chúng Tôi</a></li>
+                    <li><a href="#contact">Liên Hệ</a></li>
+                    <li id="adminLink" style="display:none;"><a href="admin.html">Quản Lý User</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="feedback.html">Phản Hồi</a></li>
+                </ul>
+            </nav>
+            <div class="user-section">
+                <button class="btn-basket" onclick="openBasketModal()">
+                    🛒 <span id="cartCount" class="cart-count">0</span>
+                </button>
+                <span id="username"></span>
+                <button class="btn-logout" onclick="logout()">Đăng Xuất</button>
+            </div>
+        </div>
+    </header>
+
+    
+    <aside id="leftSidebar" class="left-sidebar">
+        <div class="sidebar-header">
+            <h3>Menu</h3>
+            <button class="sidebar-close" onclick="closeSidebar()" aria-label="Đóng menu">&times;</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html" class="active" onclick="closeSidebar()">Trang Chủ</a>
+            <a href="home.html#products" onclick="closeSidebar()">Sản Phẩm</a>
+            <a href="home.html#about" onclick="closeSidebar()">Về Chúng Tôi</a>
+            <a href="home.html#contact" onclick="closeSidebar()">Liên Hệ</a>
+            <a id="sidebarAdminLink" href="admin.html" style="display:none;" onclick="closeSidebar()">Quản Lý User</a>
+            <a href="profile.html" onclick="closeSidebar()">Profile</a>
+            <a href="feedback.html" onclick="closeSidebar()">Phản Hồi</a>
+            <a href="cart.html" onclick="closeSidebar()">Giỏ Hàng</a>
+        </nav>
+    </aside>
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Chào mừng đến ShopDrink</h2>
+            <p>Những thức uống tốt nhất cho sức khỏe của bạn</p>
+            <a href="#products" class="btn-primary">Khám Phá Sản Phẩm</a>
+        </div>
+    </section>
+
+    
+    <section id="products" class="products">
+        <div class="container">
+            <h2>Sản Phẩm Nổi Bật</h2>
+            <div class="products-grid" id="productsGrid">
+                
+            </div>
+        </div>
+    </section>
+
+    
+    <div id="basketModal" class="basket-modal">
+        <div class="basket-modal-content">
+            <div class="basket-header">
+                <h2>Giỏ Hàng Của Bạn</h2>
+                <button class="close-btn" onclick="closeBasketModal()">&times;</button>
+            </div>
+            <div class="basket-body">
+                <table class="basket-table">
+                    <thead>
+                        <tr>
+                            <th>Sản Phẩm</th>
+                            <th>Giá</th>
+                            <th>Số Lượng</th>
+                            <th>Thành Tiền</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="basketItems">
+                        <tr id="emptyBasket">
+                            <td colspan="5" class="empty-message">Giỏ hàng của bạn đang trống</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="basket-footer">
+                <div class="basket-summary">
+                    <span>Tổng tiền:</span>
+                    <span id="basketTotalPrice" class="total-price">0 VNĐ</span>
+                </div>
+                <button class="btn-checkout" onclick="checkout()">Thanh Toán</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Về Chúng Tôi</h2>
+            <p>ShopDrink là một cửa hàng bán đồ uống online chất lượng cao, cung cấp các sản phẩm đồ uống tốt cho sức khỏe từ các thương hiệu hàng đầu.</p>
+        </div>
+    </section>
+
+    
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Liên Hệ Với Chúng Tôi</h2>
+            <div class="contact-info">
+                <div class="info-item">
+                    <h4>📍 Địa Chỉ</h4>
+                    <p>123 Đường Lê Lợi, TP. HCM</p>
+                </div>
+                <div class="info-item">
+                    <h4>📞 Điện Thoại</h4>
+                    <p>0123456789</p>
+                </div>
+                <div class="info-item">
+                    <h4>📧 Email</h4>
+                    <p>info@shopdrink.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="orderHistory" class="order-history-section" style="display:none;">
+        <div class="container">
+            <h2>Lịch Sử Đặt Hàng</h2>
+            <div class="orders-list" id="ordersList">
+                <p class="loading">Đang tải...</p>
+            </div>
+        </div>
+    </section>
+
+    
+    <div id="reviewModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeReviewModal()">&times;</span>
+            <h2 id="productName"></h2>
+            <div class="reviews-container">
+                <div class="review-form">
+                    <h4>Thêm Bình Luận</h4>
+                    <form id="reviewForm" onsubmit="submitReview(event)">
+                        <textarea id="reviewComment" placeholder="Chia sẻ trải nghiệm của bạn..." rows="4" maxlength="500"></textarea>
+                        <div class="rating-input">
+                            <label>Đánh giá: <span id="reviewRatingValue">5</span> ⭐</label>
+                            <input type="range" id="reviewRating" min="1" max="5" value="5" oninput="document.getElementById('reviewRatingValue').textContent = this.value">
+                        </div>
+                        <button type="submit" class="btn-submit">Gửi Bình Luận</button>
+                    </form>
+                </div>
+                <div class="reviews-list">
+                    <h4 id="avgRatingDisplay"></h4>
+                    <div id="reviewsList">
+                        <p class="loading">Đang tải bình luận...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+        <p>&copy; 2024 ShopDrink. Tất cả các quyền được bảo lưu.</p>
+    </footer>
+
+    
+    <div id="message" class="message"></div>
+
+    <script src="home.js"></script>
+</body>
+</html>

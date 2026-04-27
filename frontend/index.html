@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập / Đăng ký</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-register">
+            
+            <div class="login-form active">
+                <h2>Đăng Nhập</h2>
+                <p>Vui lòng nhập thông tin của bạn</p>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="text" id="loginUsername" placeholder="Tên đăng nhập" required>
+                    </div>
+                    <div class="form-group password-group">
+                        <input type="password" id="loginPassword" placeholder="Mật khẩu" required>
+                        <button type="button" class="password-toggle" aria-label="Hien mat khau" data-target="loginPassword">Hien</button>
+                    </div>
+                    <button type="submit" class="btn">ĐĂNG NHẬP</button>
+                    <p class="toggle-form">Chưa có tài khoản? <a href="#" onclick="toggleForm()">Đăng ký</a></p>
+                </form>
+            </div>
+
+            
+            <div class="register-form">
+                <h2>Đăng Ký</h2>
+                <p>Sử dụng tài khoản mạng xã hội hoặc tạo tài khoản mới</p>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <input type="text" id="regUsername" placeholder="Tên đăng nhập" maxlength="20" required>
+                        <small>Tối đa 20 ký tự</small>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="regEmail" placeholder="Email" required>
+                    </div>
+                    <div class="form-group password-group">
+                        <input type="password" id="regPassword" placeholder="Mật khẩu" required>
+                        <button type="button" class="password-toggle" aria-label="Hien mat khau" data-target="regPassword">Hien</button>
+                    </div>
+                    <div class="form-group password-group">
+                        <input type="password" id="regConfirmPassword" placeholder="Nhập lại mật khẩu" required>
+                        <button type="button" class="password-toggle" aria-label="Hien mat khau" data-target="regConfirmPassword">Hien</button>
+                    </div>
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">Tôi đồng ý với các điều khoản và điều kiện</label>
+                    </div>
+                    <button type="submit" class="btn">ĐĂNG KÝ</button>
+                    <p class="toggle-form">Đã có tài khoản? <a href="#" onclick="toggleForm()">Đăng nhập</a></p>
+                </form>
+            </div>
+
+            
+            <div class="social-signup">
+                <div class="social-icon">
+                    <button class="social-btn gmail" title="Gmail">
+                        <img src="image/gmail.png" alt="Gmail">
+                    </button>
+                    <p>Gmail</p>
+                </div>
+                <div class="social-icon">
+                    <button class="social-btn facebook" title="Facebook">
+                        <img src="image/facebook.png" alt="Facebook">
+                    </button>
+                    <p>Facebook</p>
+                </div>
+                <div class="social-icon">
+                    <button class="social-btn google" title="Google">
+                        <img src="image/google.png" alt="Google">
+                    </button>
+                    <p>Google</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="message" class="message"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

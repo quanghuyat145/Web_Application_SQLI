@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng - ShopDrink</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body class="cart-order-page">
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="home.html" class="logo-link">🥤 ShopDrink</a></h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="home.html">Trang Chủ</a></li>
+                    <li><a href="home.html#products">Sản Phẩm</a></li>
+                    <li><a href="home.html#about">Về Chúng Tôi</a></li>
+                    <li><a href="home.html#contact">Liên Hệ</a></li>
+                    <li id="adminLink" style="display:none;"><a href="admin.html">Quản Lý User</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="feedback.html">Phản Hồi</a></li>
+                    <li><a href="cart.html" class="active">Giỏ Hàng</a></li>
+                </ul>
+            </nav>
+            <div class="user-section">
+                <button class="btn-basket" onclick="openBasketModal()">
+                    🛒 <span id="cartCount" class="cart-count">0</span>
+                </button>
+                <span id="username"></span>
+                <button class="btn-logout" onclick="logout()">Đăng Xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="order-main">
+        <section class="order-card">
+            <h2 class="order-title">Thanh Toán</h2>
+
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="cartItems">
+                    <tr>
+                        <td colspan="4" class="empty-message">Giỏ hàng của bạn đang trống</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="coupon-box">
+                <label for="couponInput">Coupon:</label>
+                <input id="couponInput" type="text" placeholder="Add coupon">
+                <button type="button" class="coupon-btn">Apply</button>
+            </div>
+
+            <div class="order-total-line">
+                <span>Total:</span>
+                <strong id="totalPrice">0đ</strong>
+            </div>
+
+            <div class="place-order-wrap">
+                <button id="cartCheckoutBtn" class="place-order-btn" onclick="checkout()">Place order</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="message" class="message"></div>
+
+    <script src="home.js"></script>
+</body>
+</html>

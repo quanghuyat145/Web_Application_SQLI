@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - ShopDrink</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body class="profile-page">
+    <header class="header">
+        <div class="container">
+            <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Mo menu">☰</button>
+            <div class="logo">
+                <h1><a href="home.html" class="logo-link">🥤 ShopDrink</a></h1>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="home.html">Trang Chu</a></li>
+                    <li><a href="home.html#products">San Pham</a></li>
+                    <li><a href="home.html#about">Ve Chung Toi</a></li>
+                    <li><a href="home.html#contact">Lien He</a></li>
+                    <li id="adminLink" style="display:none;"><a href="admin.html">Quan Ly User</a></li>
+                    <li><a href="profile.html" class="active">Profile</a></li>
+                    <li><a href="feedback.html">Phan Hoi</a></li>
+                </ul>
+            </nav>
+            <div class="user-section">
+                <button class="btn-basket" onclick="openBasketModal()">🛒 <span id="cartCount" class="cart-count">0</span></button>
+                <span id="username"></span>
+                <button class="btn-logout" onclick="logout()">Dang Xuat</button>
+            </div>
+        </div>
+    </header>
+
+    <aside id="leftSidebar" class="left-sidebar">
+        <div class="sidebar-header">
+            <h3>Menu</h3>
+            <button class="sidebar-close" onclick="closeSidebar()" aria-label="Dong menu">&times;</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html" onclick="closeSidebar()">Trang Chu</a>
+            <a href="home.html#products" onclick="closeSidebar()">San Pham</a>
+            <a href="home.html#about" onclick="closeSidebar()">Ve Chung Toi</a>
+            <a href="home.html#contact" onclick="closeSidebar()">Lien He</a>
+            <a id="sidebarAdminLink" href="admin.html" style="display:none;" onclick="closeSidebar()">Quan Ly User</a>
+            <a href="profile.html" class="active" onclick="closeSidebar()">Profile</a>
+            <a href="feedback.html" onclick="closeSidebar()">Phan Hoi</a>
+            <a href="cart.html" onclick="closeSidebar()">Gio Hang</a>
+        </nav>
+    </aside>
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <main class="legacy-profile-main">
+        <section class="legacy-profile-panel">
+            <h2>User Profile</h2>
+
+            <div class="legacy-avatar-wrap">
+                <img id="profileImage" class="legacy-avatar-image" src="image/profile-placeholder.png" alt="User avatar" onerror="this.style.display='none'; document.getElementById('profileAvatarFallback').style.display='flex';">
+                <div id="profileAvatarFallback" class="legacy-avatar-fallback">👤</div>
+            </div>
+
+            <div class="legacy-separator">\</div>
+
+            <div class="legacy-form-row">
+                <label for="profileImageFile">File Upload:</label>
+                <input id="profileImageFile" type="file" accept="image/*">
+            </div>
+            <p class="legacy-help">• Maximum file size 150Kb<br>• All image formats are accepted</p>
+            <button type="button" class="legacy-button" onclick="uploadProfilePicture()">Upload Picture</button>
+
+            <div class="legacy-or">
+                <span></span>
+                <b>or</b>
+                <span></span>
+            </div>
+
+            <div class="legacy-form-row">
+                <input id="profileImageUrl" type="text">
+                <label for="profileImageUrl">Image URL:</label>
+            </div>
+            <button type="button" class="legacy-button" onclick="linkProfileImage()">Link Image</button>
+
+            <div class="legacy-account-fields">
+                <div class="legacy-form-row">
+                    <input id="profileEmailInput" type="email" disabled>
+                    <label for="profileEmailInput">Email:</label>
+                </div>
+                <div class="legacy-form-row">
+                    <input id="profileUsernameInput" type="text">
+                    <label for="profileUsernameInput">Username:</label>
+                </div>
+                <button type="button" class="legacy-button" onclick="setProfileUsername()">Set Username</button>
+            </div>
+
+            <div class="legacy-password-fields">
+                <div class="legacy-form-row">
+                    <input id="currentPasswordInput" type="password">
+                    <label for="currentPasswordInput">Current Password:</label>
+                </div>
+                <div class="legacy-form-row">
+                    <input id="newPasswordInput" type="password">
+                    <label for="newPasswordInput">New Password:</label>
+                </div>
+                <div class="legacy-form-row">
+                    <input id="repeatPasswordInput" type="password">
+                    <label for="repeatPasswordInput">Repeat Password:</label>
+                </div>
+                <button type="button" class="legacy-button" onclick="changePasswordLab()">Change Password</button>
+            </div>
+
+            <p id="profileStatus" class="legacy-status"></p>
+        </section>
+    </main>
+
+    <div id="message" class="message"></div>
+
+    <script src="home.js"></script>
+</body>
+</html>
