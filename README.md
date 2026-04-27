@@ -20,5 +20,5 @@ Config file .env.example use MySQL
 ![Demo](demogif.gif)
 
 ## 🎥 High-level logic vulnerability
-![Demo](https://www.youtube.com/watch?v=Db-H5unX3aI)
+[![Demo](https://img.youtube.com/vi/Db-H5unX3aI/0.jpg)](https://www.youtube.com/watch?v=Db-H5unX3aI)
 
