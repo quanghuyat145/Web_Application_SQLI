@@ -16,9 +16,9 @@ This web application is designed for educational purposes to demonstrate SQL Inj
 ## Getting Started
 Config file .env.example use MySQL
 
-## 🎥 Demo
+## 🎥 SQL Injection
 ![Demo](demogif.gif)
 
-## 🎥 Demo
-![Demo](Media1.mp4)
+## 🎥 High-level logic vulnerability
+![Demo](https://www.youtube.com/watch?v=Db-H5unX3aI)
 
