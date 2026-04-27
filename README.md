@@ -1,32 +1,71 @@
-Hello everyone, my name is Nguyen Quang Huy. I am currently a final-year student majoring in Information Security at Posts and Telecommunications Institute of Technology (PTIT). 
-Below is a website containing SQL Injection vulnerabilities for educational and learning purposes.
+# 🛡️ Website Description
 
-# Website Description
-This web application is designed for educational purposes to demonstrate SQL Injection (SQLI) vulnerabilities. It provides a controlled environment for users to learn about SQLI attacks and how to mitigate them. Key features include:
+This web application is built for educational and security research purposes, focusing on demonstrating common web vulnerabilities based on the OWASP Top 10.
 
-- **SQL Injection Demonstration**: Explore how SQLI vulnerabilities can be exploited in web applications.
-- **User Authentication**: Understand the importance of secure login processes.
-- **Interactive Learning**: Engage with the application to see real-time effects of SQLI attacks.
+It provides a controlled environment where learners can understand how vulnerabilities are exploited in real-world scenarios, as well as how to identify and mitigate them.
 
-## Technologies Used
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Python, Flask
-- **Database**: MySQL
+### 🔍 Key Features
 
-## Getting Started
-Config file .env.example use MySQL
+- **SQL Injection (SQLi) Demonstration**  
+  Simulate SQL Injection attacks to understand how improper input validation can lead to data leakage and authentication bypass.
 
-## 🎥 SQL Injection
-![Demo](demogif.gif)
+- **Authentication & Authorization Flaws**  
+  Explore common weaknesses in login systems and access control mechanisms.
 
-## 🎥 High-level logic vulnerability
+- **Cross-Site Scripting (XSS)**  
+  Demonstrate how user input can be injected and executed in the browser.
+
+- **Sensitive Data Exposure**  
+  Highlight risks caused by improper configuration and exposed sensitive information.
+
+- **Interactive Learning Environment**  
+  Users can directly interact with the system to observe the impact of each vulnerability in real time.
+
+---
+
+## ⚙️ Technologies Used
+
+- **Frontend**: HTML, CSS, JavaScript  
+- **Backend**: Python (Flask)  
+- **Database**: MySQL  
+
+---
+
+## 🚀 Getting Started
+
+1. Clone the repository  
+2. Configure environment variables using `.env.example`  
+3. Set up MySQL database  
+4. Run the Flask application  
+
+---
+
+## 🎥 Vulnerability Demonstrations
+
+### 🔴 SQL Injection
+<img src="demogif.gif" width="700">
+
+---
+
+### 🟠 High-Level Logic Vulnerability
 [![Demo](https://img.youtube.com/vi/Db-H5unX3aI/0.jpg)](https://www.youtube.com/watch?v=Db-H5unX3aI)
 
-## 🎥 Stored XSS
+---
+
+### 🟡 Stored XSS
 [![Demo](https://img.youtube.com/vi/tCFA5gig22g/0.jpg)](https://www.youtube.com/watch?v=tCFA5gig22g)
 
-## 🎥 Sensitive Config Leak
-<img width="948" height="342" alt="sensitive leak" src="https://github.com/user-attachments/assets/ba3ab8ab-761b-4b51-b39f-d33970b4d335" />
+---
 
-## 🎥 Broken Authentication
+### 🔵 Sensitive Configuration Leak
+<img width="900" src="https://github.com/user-attachments/assets/ba3ab8ab-761b-4b51-b39f-d33970b4d335" />
+
+---
+
+### 🟣 Broken Authentication
 [![Demo](https://img.youtube.com/vi/jLX3pEMcwKs/0.jpg)](https://youtu.be/jLX3pEMcwKs)
+
+---
+
+### ⚫ Broken Access Control
+[![Demo](https://img.youtube.com/vi/LX96yskSRMQ/0.jpg)](https://youtu.be/LX96yskSRMQ)
